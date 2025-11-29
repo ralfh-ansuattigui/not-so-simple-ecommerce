@@ -1,11 +1,11 @@
-FROM node:20-alpine3.22 AS build
+FROM node:25.2.1-alpine AS build
 WORKDIR /nsse-frontend
 COPY package*.json ./
 RUN npm ci --silent --only=production
 COPY . .
 RUN npm run build
 
-FROM nginx:1.25-alpine
+FROM nginx:1.29.3-alpine
 COPY --from=build /nsse-frontend/dist /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
