@@ -1,7 +1,7 @@
 FROM node:20-alpine AS build
 WORKDIR /nsse-frontend
 COPY package*.json ./
-RUN npm ci --silent
+RUN npm ci --silent --only=production
 COPY . .
 RUN npm run build
 
